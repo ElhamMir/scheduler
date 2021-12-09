@@ -12,14 +12,15 @@ export default function InterviewerListItem(props) {
         // avatar: "https://i.imgur.com/LpaY82x.png"
       });
       
-    return (
-<li className={interviewer} onClick={() => props.setInterviewer(props.id)}>
-  <img
-    className="interviewers__item-image"
-    src={props.avatar}
-    alt={props.name ? props.name: ''}
-  />
-  Sylvia Palmer
-</li>
+  
+return (
+  <li className={interviewer} onClick={props.setInterviewer}>
+    <img
+      className="interviewers__item-image"
+      src={props.avatar}
+      alt={props.name}
+    />
+    {props.selected && props.name}
+  </li>
 );
 }
