@@ -1,8 +1,9 @@
 import React from "react";
 import "components/Appointment/styles.scss";
-export default function InterviewerList(props) {
-    return(  
-
+import Button from 'components/Button';
+import InterviewerList from "components/InterviewerList.js";
+export default function Form(props) {
+  return(
 <main className="appointment__card appointment__card--create">
   <section className="appointment__card-left">
     <form autoComplete="off">
@@ -11,6 +12,7 @@ export default function InterviewerList(props) {
         name="name"
         type="text"
         placeholder="Enter Student Name"
+        student = {props.student}
         /*
           This must be a controlled component
           your code goes here
@@ -18,14 +20,17 @@ export default function InterviewerList(props) {
       />
     </form>
     <InterviewerList 
+      interviewers={props.interviewers}
+      //interviewer={interviewers[0]}
       /* your code goes here */
     />
   </section>
   <section className="appointment__card-right">
     <section className="appointment__actions">
-      <Button danger {/* your code goes here */}>Cancel</Button>
-      <Button confirm {/* your code goes here */}>Save</Button>
+      <Button danger onClick={props.onCancel}>Cancel</Button>
+      <Button confirm onClick={props.onSave}>Save</Button>
     </section>
   </section>
 </main>
-)}
+)
+}
