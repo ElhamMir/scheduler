@@ -23,7 +23,7 @@ import Status
 from "components/Appointment/Status.js"
 import Error
 from "components/Appointment/Error.js"
-// import Form from "components/Appointment/Form.js";
+import Form from "components/Appointment/Form.js";
 
 storiesOf("Button", module)
   .addParameters({
@@ -184,6 +184,29 @@ storiesOf("Button", module)
     .add('Error', () => (
       <Error message="Could not save appointment" onClose={action('onClose')} />
     ))
+    .add('Edit', () => (
+          <Form
+            name="Jon Doe"
+            interviewers={interviewers}
+            interviewer={interviewers[0].id}
+            onSave={action('onSave')}
+            onCancel={action('onCancel')}
+            // onSubmit={event => event.preventDefault()}
+          />
+        ))
+        .add('Create', () => (
+          <Form
+            interviewers={interviewers}
+            onSave={action('onSave')}
+            onCancel={action('onCancel')}
+          />
+        ))
+        // .add("Appointment Empty", () => (
+        //   <Fragment>
+        //     <Appointment id={1} time="4pm" />
+        //     <Appointment time="5pm" />
+        //   </Fragment>
+        // ));
 //   storiesOf("DayListItem", module) //Initiates Storybook and registers our DayListItem component
 //   .addParameters({
 //     backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
