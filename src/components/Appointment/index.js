@@ -1,6 +1,9 @@
 import React from "react";
+import "components/Appointment/Header";
+import "components/Appointment/Show";
+import "components/Appointment/Empty";
 import "components/Appointment/styles.scss";
-
+//Import the Header, Show and Empty components into Appointment/index.js.
 
 export default function InterviewerList(props) {
    const t = props.time
