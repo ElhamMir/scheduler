@@ -12,7 +12,7 @@ const interviewers = props.interviewers.map((interviewer) => {
             name={interviewer.name}
             avatar={interviewer.avatar}
             selected={interviewer.id === props.value}
-            setInterviewer={() => props.onChange(interviewer.id)}    
+            setInterviewer={event => props.setInterviewer(interviewer.id)}    
             />
 
       
