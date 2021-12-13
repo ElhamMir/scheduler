@@ -24,4 +24,3 @@ const interviewers = props.interviewers.map((interviewer) => {
   <ul className="interviewers__list">{interviewers}</ul>
 </section> );
 }
-
