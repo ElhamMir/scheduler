@@ -1,4 +1,5 @@
-import React from "react";
+import React, { Fragment } from 'react'
+
 //import React, { Fragment } from 'react'
 
 
@@ -201,6 +202,34 @@ storiesOf("Button", module)
             onCancel={action('onCancel')}
           />
         ))
+        .add("Appointment Empty", () => (
+          <Fragment>
+            <Appointment id={1} time="4pm" >
+            <Header time="4pm" />
+            </Appointment>
+            <Empty onAdd={action("onAdd")}/>
+            <Appointment time="5pm" >
+            <Header time="12pm" />
+            </Appointment>
+          </Fragment>
+        ))
+        .add("Appointment Booked", () => (
+          <Fragment>
+            <Appointment
+              id={1}
+              time="4pm"
+              interview={{ student: "Lydia Miller-Jones", interviewer }}
+            />
+             <Show
+        student="Lydia Miller-Jones"
+        interviewer={interviewers[0]}
+        onEdit={action('onEdit')}
+        onDelete={action('onDelete')}
+      />
+            <Appointment time="5pm" />
+          </Fragment>
+        ))
+        
         // .add("Appointment Empty", () => (
         //   <Fragment>
         //     <Appointment id={1} time="4pm" />
