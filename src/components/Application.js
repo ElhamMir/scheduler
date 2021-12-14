@@ -66,16 +66,18 @@ const appointments = [
 export default function Application(props) {
   const [day, setDay] = useState("Monday");
   const schedule = appointments.map(appointment => { if(appointment.interview)
-    return  <Show
+    return  <Header time={appointment.time} />,<Show
     student={appointment.interview.student}
-    interviewer={appointment.interview}
+    interviewer={appointment.interview.interviewer}
+    interviewerName={appointment.interview.interviewer.name}
    
   />
-return (<Header time={"12pm"} />)
-    {/* // return <Appointment key={appointment.id} id={appointment.id} time={appointment.time} interview={appointment.interview}  /> */}
-    
-    ;
-  });
+return (
+  <React.Fragment key={appointment.id}>
+  <Header time={appointment.time}/>
+  <Empty />
+</React.Fragment>
+  )});
     
 
    
