@@ -2,8 +2,7 @@ export function getAppointmentsForDay(state, day) {
     //... returns an array of appointments for that day
     console.log("kkk",state.days.map(day => day.name))
     let results=[]
-    console.log(state.days,"state.days")
-    console.log(day,"day")
+ 
     let flag = false
     for(let i = 0; i<state.days.length; i++){
         
