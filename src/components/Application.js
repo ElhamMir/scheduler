@@ -1,4 +1,3 @@
-
 //import React from "react";
 import React, { useState,useEffect } from "react";
 import axios from 'axios';
@@ -28,44 +27,44 @@ import Show from "components/Appointment/Show.js"
 //   },
 // ];
 
-const appointments = [
-  {
-    id: 1,
-    time: "12pm",
-  },
-  {
-    id: 2,
-    time: "1pm",
-    interview: {
-      student: "Lydia Miller-Jones",
-      interviewer:{
-        id: 3,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  },
-  {
-    id: 3,
-    time: "2pm",
-  },
-  {
-    id: 4,
-    time: "3pm",
-    interview: {
-      student: "Archie Andrews",
-      interviewer:{
-        id: 4,
-        name: "Cohana Roy",
-        avatar: "https://i.imgur.com/FK8V841.jpg",
-      }
-    }
-  },
-  {
-    id: 5,
-    time: "4pm",
-  }
-];
+// const appointments = [
+//   {
+//     id: 1,
+//     time: "12pm",
+//   },
+//   {
+//     id: 2,
+//     time: "1pm",
+//     interview: {
+//       student: "Lydia Miller-Jones",
+//       interviewer:{
+//         id: 3,
+//         name: "Sylvia Palmer",
+//         avatar: "https://i.imgur.com/LpaY82x.png",
+//       }
+//     }
+//   },
+//   {
+//     id: 3,
+//     time: "2pm",
+//   },
+//   {
+//     id: 4,
+//     time: "3pm",
+//     interview: {
+//       student: "Archie Andrews",
+//       interviewer:{
+//         id: 4,
+//         name: "Cohana Roy",
+//         avatar: "https://i.imgur.com/FK8V841.jpg",
+//       }
+//     }
+//   },
+//   {
+//     id: 5,
+//     time: "4pm",
+//   }
+// ];
 
 export default function Application(props) {
   const [state, setState] = useState({
@@ -74,30 +73,39 @@ export default function Application(props) {
     // you may put the line below, but will have to remove/comment hardcoded appointments variable
     appointments: {}
   });
+  const setDay = day => setState({ ...state, day });
+    //Add the line below:
+    const dailyAppointments = [];
 //  state = { day: "Monday", days: [] };
 // setState({ ...state, day: "Tuesday" });
-//const setDay = day => setState({ ...state, day });
-const setDays = (days) => {
-  setState(prev => ({ ...prev, days:days }));
+//const setDays = day => setState({ ...state, day });
+// const setDays = (days) => {
+//   setState(prev => ({ ...prev, days:days }));
 
-  //... your code here ...
-}
+//   //... your code here ...
+// }
 //const setDay = setDays
 useEffect(() => {
-  axios
-    .get('/api/days')
-    .then(res => {
-      console.log(res)
-      setDays(res.data);
-      console.log("response",res.data)
-    })
-  
+
+  Promise.all([
+    axios.get('/api/days'),
+    axios.get('/api/appointments'),
+    axios.get('/api/interviewers')
+  ]).then(response => {
+    setState(prev => ({
+      ...prev,
+      days: response[0].data,
+      appointments: response[1].data,
+      interviewers: response[2].data
+    }));
+  });
 }, []);
 
 
 
+//dailyAppointments.map(appointment => (
 
-  const schedule = appointments.map(appointment => { 
+  const schedule = dailyAppointments.map(appointment => { 
     //<Header time={appointment.time}/>
     if(appointment.interview)
    return(
@@ -113,7 +121,8 @@ return (
   <Header time={appointment.time}/>
   <Empty />
 </React.Fragment>
-  )});
+  )
+});
     
 
    
@@ -129,7 +138,7 @@ return (
 />
 <hr className="sidebar__separator sidebar--centered" />
 <nav className="sidebar__menu">
-<DayList days={state.days} day={state.day} setDay={setDays} />
+<DayList days={state.days} day={state.day} setDay={setDay} />
 
 
 </nav>
