@@ -1,7 +1,7 @@
 //import React from "react";
 import React, { useState,useEffect } from "react";
 import axios from 'axios';
-import { getAppointmentsForDay } from 'helpers/selectors.js';
+import { getAppointmentsForDay,getInterview } from 'helpers/selectors.js';
 import Appointment from "components/Appointment"
 import DayList from "components/DayList.js"
 import "components/Application.scss";
@@ -108,6 +108,7 @@ const dailyAppointments = getAppointmentsForDay(state, state.day);
 
   const schedule = dailyAppointments.map(appointment => { 
     //<Header time={appointment.time}/>
+    const interview = getInterview(state, appointment.interview);
     if(appointment.interview)
    return(
     <React.Fragment><Header time={appointment.time} />,<Show
