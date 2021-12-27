@@ -67,6 +67,7 @@ import Show from "components/Appointment/Show.js"
 //   }
 // ];
 
+
 export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
@@ -75,6 +76,25 @@ export default function Application(props) {
     appointments: {}
   });
   const setDay = day => setState({ ...state, day });
+  function bookInterview(id, interview) {
+    console.log(id, interview);
+    const appointments = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    setState({
+      ...state,
+      appointments
+    });
+    
+    
+  }
+  function save(name, interviewer) {
+    const interview = {
+      student: name,
+      interviewer
+    };
+  }
     //Add the line below:
   
 //  state = { day: "Monday", days: [] };
