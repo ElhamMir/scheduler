@@ -1,6 +1,6 @@
 import React from "react";
 import "components/Appointment/styles.scss";
-export default function InterviewerList(props) {
+export default function Status(props) {
     return(  
 <main className="appointment__card appointment__card--status">
   <img
