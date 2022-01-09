@@ -11,7 +11,9 @@ const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
 const SAVING = "SAVING";
+
 export default function Appointment(props) {
+   console.log("props here",props)
    const save = (name, interviewer) => {
      const interview = {
        student: name,
@@ -29,8 +31,8 @@ export default function Appointment(props) {
        {mode === EMPTY && <Empty onAdd={(event) => {console.log("here");transition(CREATE)}}/>}
        {mode === SHOW && (
          <Show 
-           student={props.interview.student}
-           interviewer={props.interview.interviewer}
+           student={interview.student}
+           interviewer={interview.interviewer}
          />
        )}
        {mode === CREATE && (
