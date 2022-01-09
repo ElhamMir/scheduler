@@ -20,17 +20,26 @@ export default function Application(props) {
     interviewers: []
   });
   const setDay = day => setState({ ...state, day });
-    //Add the line below:
-  
-//  state = { day: "Monday", days: [] };
-// setState({ ...state, day: "Tuesday" });
-//const setDays = day => setState({ ...state, day });
-// const setDays = (days) => {
-//   setState(prev => ({ ...prev, days:days }));
 
-//   //... your code here ...
-// }
-//const setDay = setDays
+  function bookInterview(id, interview) {
+    console.log("bookInterview id and interview",{id, interview});
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+        
+    console.log(appointments,"appoitments")
+    setState({
+      ...state,
+      appointments
+    });
+    
+  }
+  
 useEffect(() => {
   const daysPromise = axios.get('/api/days');
   const appointmentPromise = axios.get('/api/appointments');
@@ -71,7 +80,7 @@ const dailyAppointments = getAppointmentsForDay(state, state.day);
         />
       </section>
       <section className="schedule">
-       
+       {console.log("testing",getAppointmentsForDay(state, state.day).map(appointment=> getInterview(state,appointment.interview)))}
         { getAppointmentsForDay(state, state.day).map(appointment => (
           <Appointment
             key={appointment.id}
@@ -79,6 +88,7 @@ const dailyAppointments = getAppointmentsForDay(state, state.day);
             time={appointment.time}
             interview={getInterview(state, appointment.interview)}
             interviewers={getInterviewersForDay(state, state.day)}
+            bookInterview = {bookInterview}
            
         />))}
         <Appointment key={"last"} time={"5pm"} />

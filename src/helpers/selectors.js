@@ -1,5 +1,6 @@
 export function getAppointmentsForDay(state, day) {
-    //... returns an array of appointments for that day
+    console.log("getAppointmentsForDay state",state)
+    console.log("getAppointmentsForDay day",day)
     console.log("kkk",state.days.map(day => day.name))
     let results=[]
  
@@ -14,8 +15,7 @@ export function getAppointmentsForDay(state, day) {
             for(let j of state.days[i].appointments){
                 results.push(state.appointments[j])
             }
-            console.log(results,"restuszrgzsrhbf")
-          
+            
         }
     }
     if(flag === false) {
@@ -25,6 +25,8 @@ export function getAppointmentsForDay(state, day) {
 
   }
   export function getInterviewersForDay(state, day) {
+      console.log("getInterviewersForDay state",state)
+      console.log("getInterviewersForDay day",day)
     console.log("kkk",state.days.map(day => day.name))
     let results=[]
  
@@ -40,10 +42,13 @@ export function getAppointmentsForDay(state, day) {
             for(let j of state.days[i].appointments){
                 f = state.appointments[j]
                 console.log("f",f)
-                if(f.interview !=null){results.push(f.interview.interviewer)}
+                if(f.interview !=null){
+                    const interviewerId = f.interview.interviewer
+                    results.push(state.interviewers[interviewerId])
+                }
                 
             }
-            console.log(results,"restuszrgzsrhbf")
+            
           
         }
     }
@@ -55,14 +60,16 @@ export function getAppointmentsForDay(state, day) {
   }
 // getInterviewersForDay
   export function  getInterview(state, interview) {
+      console.log("state getInterview",state)
+      console.log("interview getInterview", interview)
     if (!interview) {
         return null}
     
-        else {
-            return {
-              student: interview.student,
-              interviewer: state.interviewers[interview.interviewer]
-            }
-          }
+    else {
+        return {
+           student: interview.student,
+           interviewer: state.interviewers[interview.interviewer]
+        }
+    }
   }
   
