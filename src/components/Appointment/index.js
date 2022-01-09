@@ -1,18 +1,48 @@
 import React from "react";
-import "components/Appointment/Header";
-import "components/Appointment/Show";
-import "components/Appointment/Empty";
+import useVisualMode from "hooks/useVisualMode";
+import Header from "components/Appointment/Header";
+import Show from "components/Appointment/Show";
+import Empty from "components/Appointment/Empty.js";
+import Status from "components/Appointment/Status";
+import Form from "components/Appointment/Form";
 import "components/Appointment/styles.scss";
-//Import the Header, Show and Empty components into Appointment/index.js.
 
-export default function InterviewerList(props) {
-   const t = props.time
-   //const isLoggedIn = props.isLoggedIn;
-   if (t) {    return <article className="appointment">Appointment at {props.time}</article> ;  }  
-   return <article className="appointment">No appointments</article> }
+const EMPTY = "EMPTY";
+const SHOW = "SHOW";
+const CREATE = "CREATE";
+const SAVING = "SAVING";
+export default function Appointment(props) {
+   const save = (name, interviewer) => {
+     const interview = {
+       student: name,
+       interviewer
+     };
+     transition("SAVING");
+     props.bookInterview(props.id, interview)
+       .then(() => transition("SHOW"));
+   };
+   const interview = props.interview;
+   const {mode, transition, back} = useVisualMode( props.interview ? SHOW : EMPTY);
+   return (
+     <article className="appointment">
+       <Header time={props.time} />
+       {mode === EMPTY && <Empty onAdd={(event) => {console.log("here");transition(CREATE)}}/>}
+       {mode === SHOW && (
+         <Show 
+           student={props.interview.student}
+           interviewer={props.interview.interviewer}
+         />
+       )}
+       {mode === CREATE && (
+         <Form
+           interviewers={props.interviewers}
+           onCancel={back}
+           onSave={save}
+         />
+       )}
+       {mode === SAVING && (<Status message={"Saving"}/>)}
+     </article>
+   );
+ }
    
-        // return (
-        //     {props.time ? <article className="appointment">{props.time}</article> : (
-        //         <article className="appointment">No Appointments</article>
-        //       )}
-           // <article className="appointment">{props.time}</article> );
+    

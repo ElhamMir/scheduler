@@ -72,7 +72,8 @@ export default function Application(props) {
     day: "Monday",
     days: [],
     // you may put the line below, but will have to remove/comment hardcoded appointments variable
-    appointments: {}
+    appointments: {},
+    interviewers: []
   });
   const setDay = day => setState({ ...state, day });
     //Add the line below:
@@ -97,7 +98,7 @@ useEffect(() => {
       ...prev,
       days: response[0].data,
       appointments: response[1].data,
-      interviewers: response[2].data
+      interviewers: Object.values(response[2].data)
     }));
   });
 }, []);
@@ -108,21 +109,22 @@ const dailyAppointments = getAppointmentsForDay(state, state.day);
 
   const schedule = dailyAppointments.map(appointment => { 
     //<Header time={appointment.time}/>
-    if(appointment.interview)
+    //if(appointment.interview)
    return(
-    <React.Fragment><Header time={appointment.time} />,<Show
-    student={appointment.interview.student}
-    interviewer={appointment.interview.interviewer}
-    interviewerName={appointment.interview.interviewer.name}/></React.Fragment>)
+    <React.Fragment><Header time={appointment.time} />,<Appointment
+    time = {appointment.time}
+    interview = {appointment.interview}
+    interviewers = {state.interviewers}
+    /></React.Fragment>)
     
    
   
-return (
-  <React.Fragment key={appointment.id}>
-  <Header time={appointment.time}/>
-  <Empty />
-</React.Fragment>
-  )
+// return (
+//   <React.Fragment key={appointment.id}>
+//   <Header time={appointment.time}/>
+//   <Empty onAdd={} />
+// </React.Fragment>
+ // )
 });
     
 
