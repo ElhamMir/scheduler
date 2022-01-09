@@ -39,13 +39,15 @@ export function getAppointmentsForDay(state, day) {
             flag = true
             results=[]
             //console.log('state.days[i]["appointment"]',state.days[i].appointments)
-            for(let j of state.days[i].appointments){
-                f = state.appointments[j]
-                console.log("f",f)
-                if(f.interview !=null){
-                    const interviewerId = f.interview.interviewer
-                    results.push(state.interviewers[interviewerId])
-                }
+            for(let j of state.days[i].interviewers){
+                console.log("j",j)
+                results.push(state.interviewers[j])
+                //console.log("f",f)
+               // if(f.interviewers){
+                  //  results.push(...f.interviewers)
+               // }
+                //const interviewerId = f.interview.interviewer
+                
                 
             }
             

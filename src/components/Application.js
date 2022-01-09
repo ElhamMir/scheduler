@@ -37,9 +37,25 @@ export default function Application(props) {
       ...state,
       appointments
     });
-    
+    return axios.put(`/api/appointments/${id}`, appointment)
+    .then(response => {
+      if (response.status === 204) setState({...state, appointments});
+    })
   }
-  
+  function cancelInterview(id) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    }
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    }
+    setState({ ...state, appointments })
+    return axios.delete(`/api/appointments/${id}`, appointment)
+      .then(response => setState({ ...state, appointments }))
+
+  };
 useEffect(() => {
   const daysPromise = axios.get('/api/days');
   const appointmentPromise = axios.get('/api/appointments');
@@ -89,6 +105,7 @@ const dailyAppointments = getAppointmentsForDay(state, state.day);
             interview={getInterview(state, appointment.interview)}
             interviewers={getInterviewersForDay(state, state.day)}
             bookInterview = {bookInterview}
+            cancelInterview={cancelInterview}
            
         />))}
         <Appointment key={"last"} time={"5pm"} />
