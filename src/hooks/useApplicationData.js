@@ -10,6 +10,7 @@ import React, { useState,useEffect } from "react";
 import axios from "axios";
 import DayListItem from "components/DayListItem";
 
+const DAY_COUNT = "DAY_COUNT"
 export default function useApplicationData () {
     const [state, setState] = useState({
         day: "Monday",
@@ -20,8 +21,12 @@ export default function useApplicationData () {
       });
       const setDay = day => setState({ ...state, day });
     
+      ///////////////
       function bookInterview(id, interview) {
+        console.log("Props,spots here???", state)
+        console.log("days[day].spots",state.days[state.day])
         console.log("bookInterview id and interview",{id, interview});
+        console.log("state.appointments[id]",state.appointments[id])
         const appointment = {
           ...state.appointments[id],
           interview: { ...interview }
@@ -37,14 +42,19 @@ export default function useApplicationData () {
           appointments
         });
         console.log("daylistitem is here", DayListItem)
+        const currentDay = state.days.filter(day => day.appointments.includes(id))[0]['id'] - 1
+        const days = [...state.days]
+        days[currentDay] = {
+          ...state.days[currentDay], 
+          spots: state.days[currentDay].spots - 1 }
         return axios.put(`/api/appointments/${id}`, appointment)
         .then(response => {
-          if (response.status === 204) setState({...state, appointments});
+          if (response.status === 204) setState({...state, appointments,days});
         //   DayListItem.spots +=1
         })
         
       }
-      
+      ///////////////////
       function cancelInterview(id) {
         const appointment = {
           ...state.appointments[id],
@@ -55,8 +65,13 @@ export default function useApplicationData () {
           [id]: appointment
         }
         setState({ ...state, appointments })
+        const currentDay = state.days.filter(day => day.appointments.includes(id))[0]['id'] - 1
+        const days = [...state.days]
+         days[currentDay] = {
+           ...state.days[currentDay], 
+           spots: state.days[currentDay].spots + 1 }
         return axios.delete(`/api/appointments/${id}`, appointment)
-          .then(response => setState({ ...state, appointments }))
+          .then(response => setState({ ...state, appointments,days }))
     
       };
     useEffect(() => {
