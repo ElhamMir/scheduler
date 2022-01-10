@@ -6,6 +6,7 @@ import InterviewerList from "components/InterviewerList.js";
 export default function Form(props) {
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  console.log("interviewer",interviewer)
   const reset = function() {
     setStudent('');
     setInterviewer(null);
@@ -37,6 +38,7 @@ export default function Form(props) {
       interviewers={props.interviewers}
           interviewer={interviewer}
           setInterviewer={setInterviewer}
+          
       //interviewer={interviewers[0]}
       /* your code goes here */
     />
