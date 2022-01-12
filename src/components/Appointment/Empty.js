@@ -1,8 +1,8 @@
 
 import React from "react";
 import "components/Appointment/styles.scss";
-export default function InterviewerList(props) {
- 
+export default function Empty(props) {
+ console.log("props",props)
     return(  
 <main className="appointment__add">
   <img

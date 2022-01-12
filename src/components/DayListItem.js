@@ -4,6 +4,7 @@ import classNames from 'classnames';
 //import React from "react";
 
 export default function DayListItem(props) {
+  console.log("DayListItem props", props)
     const dayClass = classNames('day-list__item', {
         'day-list__item--selected': props.selected,
         'day-list__item--full': props.spots === 0
