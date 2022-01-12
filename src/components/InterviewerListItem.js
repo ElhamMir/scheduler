@@ -2,14 +2,13 @@ import React from "react";
 import "components/InterviewerListItem.scss";
 import classNames from "classnames";
 export default function InterviewerListItem(props) {
-    const interviewer = classNames('interviewers__item','id', 'name', 'avatar',
-    
-    {
-        'interviewers__item--selected' : props.selected
-        // id: 1,
-        // name: "Sylvia Palmer",
-        // avatar: "https://i.imgur.com/LpaY82x.png"
-      });
+
+  const interviewer = classNames('interviewers__item',
+    'id', 
+    'name', 
+    'avatar',
+    {'interviewers__item--selected' : props.selected}
+  );
       
   
 return (

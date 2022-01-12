@@ -26,27 +26,14 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
-  
     transition(SAVING);
-  
     props
       .bookInterview(props.id, interview)
       .then(() => transition(SHOW))
       .catch(error => transition(ERROR_SAVE, true));
   }
-  
-  //  const save = (student, interviewer) => {
-  //    console.log("save name",student)
-  //    console.log("save interviewer",interviewer)
-  //    const interview = {
-  //      student,
-  //      interviewer
-  //    };
-  //    transition("SAVING");
-  //    props.bookInterview(props.id, interview)
-  //   transition("SHOW");
-  //  };
-   const cancel = () => {
+
+  const cancel = () => {
     transition(DELETING);
     props.cancelInterview(props.id)
       .then(() => transition(EMPTY));
@@ -57,7 +44,7 @@ export default function Appointment(props) {
      .cancelInterview(props.id)
      .then(() => transition(EMPTY))
      .catch(error => transition(ERROR_DELETE, true));
-   }
+  }
    
    const interview = props.interview;
    const {mode, transition, back} = useVisualMode( props.interview ? SHOW : EMPTY);

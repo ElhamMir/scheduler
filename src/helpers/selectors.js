@@ -1,77 +1,58 @@
+/* returns an array containing all the appointments for the given day, it returns an empty array if it can't find the day*/
 export function getAppointmentsForDay(state, day) {
-    console.log("getAppointmentsForDay state",state)
-    console.log("getAppointmentsForDay day",day)
-    console.log("kkk",state.days.map(day => day.name))
-    let results=[]
- 
-    let flag = false
-    for(let i = 0; i<state.days.length; i++){
-        
-        console.log(state.days[i])
-        if(state.days[i]["name"] === day){
-            flag = true
-            results=[]
-            //console.log('state.days[i]["appointment"]',state.days[i].appointments)
-            for(let j of state.days[i].appointments){
-                results.push(state.appointments[j])
-            }
+  let results = [];
+  let flag = false;
+  for(let i = 0; i<state.days.length; i++){  
+    //if the day of the week is found sets the flag to true  
+    if(state.days[i]["name"] === day){
+      flag = true;
+      results = [];
+      for(let j of state.days[i].appointments){
+      results.push(state.appointments[j]);
+      }
             
-        }
     }
-    if(flag === false) {
-        return []
-    }
-    return results
-
   }
-  export function getInterviewersForDay(state, day) {
-      console.log("getInterviewersForDay state",state)
-      console.log("getInterviewersForDay day",day)
-    console.log("kkk",state.days.map(day => day.name))
-    let results=[]
- 
-    let flag = false
-    let f
-    for(let i = 0; i<state.days.length; i++){
+  //the day is not found so it returns an empty string
+  if(flag === false) {
+    return []
+  }
+  return results;
+
+}
+
+/* returns an array containing all the interviews for the given day, returns an empty array if the day is not in the state*/
+export function getInterviewersForDay(state, day) {
+  let results = []
+  let flag = false 
+  for(let i = 0; i<state.days.length; i++){
         
-        console.log(state.days[i])
-        if(state.days[i]["name"] === day){
-            flag = true
-            results=[]
-            //console.log('state.days[i]["appointment"]',state.days[i].appointments)
-            for(let j of state.days[i].interviewers){
-                console.log("j",j)
-                results.push(state.interviewers[j])
-                //console.log("f",f)
-               // if(f.interviewers){
-                  //  results.push(...f.interviewers)
-               // }
-                //const interviewerId = f.interview.interviewer
-                
-                
-            }
-            
-          
+    console.log(state.days[i])
+    if(state.days[i]["name"] === day){
+      flag = true;
+      results = [];
+        for(let j of state.days[i].interviewers){
+          results.push(state.interviewers[j]);
         }
+                   
     }
-    if(flag === false) {
-        return []
-    }
-    return results
-
   }
-// getInterviewersForDay
-  export function  getInterview(state, interview) {
-      console.log("state getInterview",state)
-      console.log("interview getInterview", interview)
+  if(flag === false) {
+    return [];
+  }
+  return results;
+
+}
+
+export function  getInterview(state, interview) {
     if (!interview) {
-        return null}
-    
+      return null;
+    } 
     else {
         return {
            student: interview.student,
            interviewer: state.interviewers[interview.interviewer]
         }
     }
-  }
+}
   

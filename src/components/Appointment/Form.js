@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-
 import "components/Appointment/styles.scss";
 import Button from 'components/Button';
 import InterviewerList from "components/InterviewerList.js";
+
 export default function Form(props) {
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
@@ -40,10 +40,6 @@ export default function Form(props) {
         value={student}
         onChange={event => setStudent(event.target.value)}
         data-testid="student-name-input"
-        /*
-          This must be a controlled component
-          your code goes here
-        */
       />
       
     </form>
@@ -51,11 +47,8 @@ export default function Form(props) {
     <section className="appointment__validation">{error}</section>
     <InterviewerList 
       interviewers={props.interviewers}
-          interviewer={interviewer}
-          setInterviewer={setInterviewer}
-          
-      //interviewer={interviewers[0]}
-      /* your code goes here */
+      interviewer={interviewer}
+      setInterviewer={setInterviewer}
     />
   </section>
   <section className="appointment__card-right">
