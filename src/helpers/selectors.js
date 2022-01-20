@@ -54,14 +54,6 @@ export function  getInterview(state, interview) {
     interviewer: state.interviewers[interview.interviewer],
   }
   return result;
-    // if (!interview) {
-    //   return null;
-    // } 
-    // else {
-    //     return {
-    //        student: interview.student,
-    //        interviewer: state.interviewers[interview.interviewer]
-    //     }
-    // }
+    
 }
   

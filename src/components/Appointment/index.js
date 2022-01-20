@@ -20,7 +20,8 @@ const ERROR_SAVE = "ERROR_SAVE"
 const ERROR_DELETE = "ERROR_DELETE"
 
 export default function Appointment(props) {
-   console.log("props here",props.interview)
+   
+  //Saves a new interview and sets the state to SAVING then SHOW
    function save(name, interviewer) {
     const interview = {
       student: name,
@@ -38,6 +39,8 @@ export default function Appointment(props) {
     props.cancelInterview(props.id)
       .then(() => transition(EMPTY));
   }
+
+  //Deletes the interview and sets the state to DELETING then EMPTY
   const destroy = () => {
     transition(DELETING,true);
     props
@@ -53,8 +56,7 @@ export default function Appointment(props) {
        <Header time={props.time} />
        {mode === EMPTY && <Empty onAdd={(event) => {console.log("here");transition(CREATE)}}/>}
        {mode === SHOW && (
-         <Show 
-         
+         <Show  
            student={props.interview? props.interview.student: {}}
            interviewer={props.interview? props.interview.interviewer : {}}
            onDelete={() => {transition(CONFIRM)}}

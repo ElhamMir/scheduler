@@ -1,13 +1,9 @@
 import React from "react";
 import useApplicationData from "hooks/useApplicationData";
-import axios from 'axios';
 import { getAppointmentsForDay,getInterview, getInterviewersForDay} from 'helpers/selectors.js';
 import Appointment from "components/Appointment"
 import DayList from "components/DayList.js"
 import "components/Application.scss";
-import Empty from "components/Appointment/Empty.js"
-import Header from "components/Appointment/Header.js"
-import Show from "components/Appointment/Show.js"
 
 export default function Application(props) {
   const {
