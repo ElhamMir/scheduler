@@ -20,13 +20,17 @@ export default function useApplicationData () {
         interviewers: []
       });
       const setDay = day => setState({ ...state, day });
-    
+    function updateSpots(state,appointments){
+      //return new days array with the updated spot for that day
+      
+    }
       ///////////////
       function bookInterview(id, interview) {
         console.log("Props,spots here???", state)
         console.log("days[day].spots",state.days[state.day])
         console.log("bookInterview id and interview",{id, interview});
         console.log("state.appointments[id]",state.appointments[id])
+        
         const appointment = {
           ...state.appointments[id],
           interview: { ...interview }
@@ -44,9 +48,26 @@ export default function useApplicationData () {
         console.log("daylistitem is here", DayListItem)
         const currentDay = state.days.filter(day => day.appointments.includes(id))[0]['id'] - 1
         const days = [...state.days]
-        days[currentDay] = {
-          ...state.days[currentDay], 
-          spots: state.days[currentDay].spots - 1 }
+        let exists
+
+        if (state.appointments[id]) {
+          exists = state.appointments[id].interview
+        } else {
+          exists = false;
+        }
+    
+        if (!exists) {
+          for (const day of days) {
+            for (const appointment of day.appointments) {
+              if (id === appointment) {
+                day.spots = day.spots - 1;
+              }
+            }
+          }
+        }
+        // days[currentDay] = {
+        //   ...state.days[currentDay], 
+        //   spots: state.days[currentDay].spots - 1 } // const days = updatespots
         return axios.put(`/api/appointments/${id}`, appointment)
         .then(response => {
           if (response.status === 204) setState({...state, appointments,days});

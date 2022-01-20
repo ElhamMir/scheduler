@@ -16,6 +16,7 @@ export default function Form(props) {
     }
     setError("");
     props.onSave(student, interviewer);
+    return;
   }
   
   const reset = function() {
