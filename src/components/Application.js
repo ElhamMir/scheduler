@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React from "react";
 import useApplicationData from "hooks/useApplicationData";
 import axios from 'axios';
 import { getAppointmentsForDay,getInterview, getInterviewersForDay} from 'helpers/selectors.js';
@@ -35,7 +35,8 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-       {console.log("testing",getAppointmentsForDay(state, state.day).map(appointment=> getInterview(state,appointment.interview)))}
+      
+       {console.log("state.day",state)}
         { getAppointmentsForDay(state, state.day).map(appointment => (
           <Appointment
             key={appointment.id}

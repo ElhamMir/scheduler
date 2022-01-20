@@ -10,7 +10,7 @@ import React, { useState,useEffect } from "react";
 import axios from "axios";
 import DayListItem from "components/DayListItem";
 
-const DAY_COUNT = "DAY_COUNT"
+const DAYe_COUNT = "DAY_COUNT"
 export default function useApplicationData () {
     const [state, setState] = useState({
         day: "Monday",
@@ -19,6 +19,7 @@ export default function useApplicationData () {
         appointments: {},
         interviewers: []
       });
+      console.log("state is",state)
       const setDay = day => setState({ ...state, day });
     function updateSpots(state,appointments){
       //return new days array with the updated spot for that day
@@ -26,10 +27,6 @@ export default function useApplicationData () {
     }
       ///////////////
       function bookInterview(id, interview) {
-        console.log("Props,spots here???", state)
-        console.log("days[day].spots",state.days[state.day])
-        console.log("bookInterview id and interview",{id, interview});
-        console.log("state.appointments[id]",state.appointments[id])
         
         const appointment = {
           ...state.appointments[id],
@@ -40,12 +37,11 @@ export default function useApplicationData () {
           [id]: appointment
         };
             
-        console.log(appointments,"appoitments")
         setState({
           ...state,
           appointments
         });
-        console.log("daylistitem is here", DayListItem)
+       
         const currentDay = state.days.filter(day => day.appointments.includes(id))[0]['id'] - 1
         const days = [...state.days]
         let exists
@@ -85,7 +81,7 @@ export default function useApplicationData () {
           ...state.appointments,
           [id]: appointment
         }
-        setState({ ...state, appointments })
+        
         const currentDay = state.days.filter(day => day.appointments.includes(id))[0]['id'] - 1
         const days = [...state.days]
          days[currentDay] = {

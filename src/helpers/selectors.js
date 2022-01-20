@@ -1,5 +1,6 @@
 /* returns an array containing all the appointments for the given day, it returns an empty array if it can't find the day*/
 export function getAppointmentsForDay(state, day) {
+ 
   let results = [];
   let flag = false;
   for(let i = 0; i<state.days.length; i++){  
@@ -23,6 +24,7 @@ export function getAppointmentsForDay(state, day) {
 
 /* returns an array containing all the interviews for the given day, returns an empty array if the day is not in the state*/
 export function getInterviewersForDay(state, day) {
+  
   let results = []
   let flag = false 
   for(let i = 0; i<state.days.length; i++){
@@ -45,14 +47,21 @@ export function getInterviewersForDay(state, day) {
 }
 
 export function  getInterview(state, interview) {
-    if (!interview) {
-      return null;
-    } 
-    else {
-        return {
-           student: interview.student,
-           interviewer: state.interviewers[interview.interviewer]
-        }
-    }
+  if (!interview) return null;
+
+  const result = {
+    student: interview.student,
+    interviewer: state.interviewers[interview.interviewer],
+  }
+  return result;
+    // if (!interview) {
+    //   return null;
+    // } 
+    // else {
+    //     return {
+    //        student: interview.student,
+    //        interviewer: state.interviewers[interview.interviewer]
+    //     }
+    // }
 }
   
