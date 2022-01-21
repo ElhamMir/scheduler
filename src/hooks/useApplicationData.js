@@ -36,19 +36,22 @@ export default function useApplicationData () {
       exists = false;
     }
     //if the appointment doesn't exist, after adding the appointment, subtracts 1 from available spots for the day
-    if (!exists) {
-      for (const day of days) {
-        for (const appointment of day.appointments) {
-          if (id === appointment) {
-            day.spots = day.spots - 1;
-          }
-        }
-      }
-    }
+   
    
     return axios.put(`/api/appointments/${id}`, appointment)
     .then(response => {
-      if (response.status === 204) setState({...state, appointments,days});
+      if (response.status === 204) 
+      if (!exists) {
+        for (const day of days) {
+          for (const appointment of day.appointments) {
+            if (id === appointment) {
+              day.spots = day.spots - 1;
+            }
+          }
+        }
+      }
+      
+      setState({...state, appointments,days});
   
     })
     
